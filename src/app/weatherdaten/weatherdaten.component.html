@@ -1,0 +1,33 @@
+<!--p>
+  weatherdaten works!
+</p-->
+
+<div>
+  <input  type="text" maxlength="250"  
+  [(ngModel)]="weather.name" placeholder="city name search" required> 
+  <button type="submit">Search</button> 
+  <!-- beim klick auf Button soll auf anderes Fenster weitergeleitet werden, wo die nur die City Info angezeigt werden-->
+</div>
+<div class="container spacer">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">Table</div>
+    <div class="panel-body">
+     
+      <div><span>Timezone: </span>{{weather.timezone}}</div>
+      
+      <div><span>DT: </span>{{weather.dt}}</div>
+      <div><span>Base: </span>{{weather.base}}</div>
+      
+      
+      <div><span>Lon: </span>{{weather.lon}}</div>
+      <div><span>Lat: </span>{{weather.lat}}</div>
+    </div>
+  </div>
+</div>
+          
+ 
+
+  
+ 
+  

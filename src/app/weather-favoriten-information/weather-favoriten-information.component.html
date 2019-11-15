@@ -1,0 +1,45 @@
+<p>
+  weather-favoriten-information works!
+</p>
+
+<table class="table table-striped">
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Timezone</th>
+    <th>DT</th>
+    <th>Base</th>
+    <th>Visibility</th>
+    <th>Cod</th>
+    <th>Lon</th>
+    <th>Lan</th>
+    
+    <!-- countryCode:number;
+     sunrise:number;
+     sunset:number;
+     weatherId:number;
+     icon:string;
+     main:string;
+     description:string;
+     temperature:number;
+     pressure:number;
+     humidity:number;
+     temp_min:number;
+     temp_max:number;
+     speed:number;
+     deg:number;-->
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of weather">
+      <td>{{w.id}}</td>
+      <td>{{w.name}}</td>
+      <td>{{w.timezone}}</td>
+      <td>{{w.dt}}</td>
+      <td>{{w.base}}</td>
+      <td>{{w.isibility}}</td>
+      <td>{{w.cod}}</td>
+      <td>{{w.lon}}</td>
+      <td>{{w.lan}}</td>
+    </tr>
+  </tbody>
+</table>
