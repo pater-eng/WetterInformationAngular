@@ -1,30 +1,44 @@
-<!--p>
-  weatherdaten works!
-</p-->
+
+
 
 <div>
-  <input  type="text" maxlength="250"  
-  [(ngModel)]="weather.name" placeholder="city name search" required> 
-  <button type="submit">Search</button> 
-  <!-- beim klick auf Button soll auf anderes Fenster weitergeleitet werden, wo die nur die City Info angezeigt werden-->
+  <label>Weather name:
+    <input #weatherName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(weatherName.value); weatherName.value=''">
+    add
+  </button>
 </div>
-<div class="container spacer">
 
+<ul class="weathers">
+  <li *ngFor="let w of Weather">
+    <a routerLink="/detail/{{w.name}}">
+      <span class="badge">{{w.name}}</span> {{hero.id}}
+    </a>
+    <!--button class="delete" title="delete hero"
+      (click)="delete(hero)">x</button-->
+  </li>
+</ul>
+
+
+<!--div class="container">
   <div class="panel panel-primary">
-    <div class="panel-heading">Table</div>
-    <div class="panel-body">
-     
-      <div><span>Timezone: </span>{{weather.timezone}}</div>
-      
-      <div><span>DT: </span>{{weather.dt}}</div>
-      <div><span>Base: </span>{{weather.base}}</div>
-      
-      
-      <div><span>Lon: </span>{{weather.lon}}</div>
-      <div><span>Lat: </span>{{weather.lat}}</div>
+   <div>
+        <input [formControl]="inputField" type="text"  placeholder="city name search"/>
+        <p>name: {{inputField.value}}</p>
+        <div>
+          <button class="btn btn-primary" type="button"  routerLink="/weathercityInfo/{{results.name}}" >
+          </button>
+        </div>
     </div>
+   
   </div>
-</div>
+  <app-weather-favoriten-information></app-weather-favoriten-information>
+</div-->
+
+
+<!--app-weather-city-information></app-weather-city-information-->
           
  
 

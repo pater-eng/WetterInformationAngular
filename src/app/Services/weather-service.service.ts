@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
+//import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
+
 import {Observable} from 'rxjs';
+import { of } from 'rxjs/observable/of';
+
 
 import {Weatherdata} from '../Weather';
 
@@ -24,25 +29,42 @@ getAllWeather(){
   .catch(this.errorHandler);
 }
 
-getCityName(name:string){
+getCityName(name:string) : Observable<Weatherdata> { 
   return this._http.get(this.baseUrl+'/weather/'+name,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
-}
+ }
 
-getWeatherCity(name:string,id:number){
+  /* GET heroes whose name contains search term */
+  searchHeroes(name: string): Observable<Weatherdata[]> {
+    if (!name.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this._http.get(this.baseUrl+'/weather/'+name,this.options)
+    .map(response=>response.json())
+    .catch(this.errorHandler);
+  }
+
+getWeatherCityAndId(name:string,id:number): Observable<Weatherdata[]>{
   return this._http.get(this.baseUrl+'/weathercity/'+name+'/'+id,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
 }
 
-saveWeatherdata(name:string){
+saveWeatherdata(name:string):Observable<Weatherdata[]>{
   return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
 }
 
-updateWeatherdata(name:string, weather:Weatherdata, id:number){
+addWeatherdata (weather: Weatherdata): Observable<Weatherdata> {
+  return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options) 
+  .map(response=>response.json())
+  .catch(this.errorHandler);
+ 
+}
+updateWeatherdata(name:string, weather:Weatherdata, id:number):Observable<Weatherdata[]>{
   return this._http.put(this.baseUrl+'/updateWeather/'+name+'/'+id, JSON.stringify(weather),this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
