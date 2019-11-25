@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-//import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { catchError, map, tap } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import { of } from 'rxjs/observable/of';
 
@@ -16,27 +17,63 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class WeatherServiceService {
 private baseUrl:string='http://localhost:8086/api';
+private getUrl:string='weather';
 private headers = new Headers({'Content-Type':'application/json',
                                'Access-Control-Allow-Origin':'http://localhost:4200',
                                'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
       'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Access-Control-Allow-Origin, Authorization, X-Requested-With'});
 private options = new RequestOptions({headers:this.headers});
-  constructor(private _http:Http) { }
+httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+  constructor(private _http:Http,  private http: HttpClient) { }
   
+
+ /** GET heroes from the server */
+ getWeather (): Observable<Weatherdata[]> {
+  return this.http.get<Weatherdata[]>(this.baseUrl+'/allWeather')
+    .pipe(
+     //tap(_ => this.log('fetched heroes')),
+     // catchError(this.handleError<Weatherdata[]>('getHeroes', []))
+    ).catch(this.errorHandler);
+}
+
 getAllWeather(){
   return this._http.get(this.baseUrl+'/allWeather',this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
 }
 
-getCityName(name:string) : Observable<Weatherdata> { 
+getCityName(name:string) { 
   return this._http.get(this.baseUrl+'/weather/'+name,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
  }
 
+ getCityWeather (name: string): Observable<Weatherdata> {
+  return this.http.get<Weatherdata>(this.baseUrl+'/weather/'+name,this.httpOptions) 
+  .pipe()
+  .map(response=>response)
+  .catch(this.errorHandler);
+  
+ 
+}
+
+ /** GET hero by id. Will 404 if id not found */
+ getCity(name: string): Observable<Weatherdata> {
+  const url = `${this.baseUrl}/${this.getUrl}/${name}`;
+  return this.http.get<Weatherdata>(url,this.httpOptions)
+  .pipe(
+   // tap(_ => this.log(`fetched hero id=${id}`)),
+   // catchError(this.handleError<Weatherdata>(`getHero id=${id}`))
+  ) 
+  .map(response=>response)
+  .catch(this.errorHandler);;
+}
+
   /* GET heroes whose name contains search term */
-  searchHeroes(name: string): Observable<Weatherdata[]> {
+  searchWeather(name: string): Observable<Weatherdata[]> {
     if (!name.trim()) {
       // if not search term, return empty hero array.
       return of([]);
@@ -46,11 +83,29 @@ getCityName(name:string) : Observable<Weatherdata> {
     .catch(this.errorHandler);
   }
 
+ /* GET heroes whose name contains search term */
+ searchWeatherdata(name: string): Observable<Weatherdata[]> {
+  if (!name.trim()) {
+    // if not search term, return empty hero array.
+    return of([]);
+  }
+  return this.http.get<Weatherdata[]>(`${this.baseUrl}/${this.getUrl}/${name}`,this.httpOptions)
+  .pipe()
+  .map(response=>response)
+  .catch(this.errorHandler);
+   /* tap(_ => this.log(`found heroes matching "${term}"`)),
+    catchError(this.handleError<Weatherdata[]>('searchHeroes', []))
+  );*/
+}
+
+  
 getWeatherCityAndId(name:string,id:number): Observable<Weatherdata[]>{
   return this._http.get(this.baseUrl+'/weathercity/'+name+'/'+id,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
 }
+
+
 
 saveWeatherdata(name:string):Observable<Weatherdata[]>{
   return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options)
@@ -58,16 +113,48 @@ saveWeatherdata(name:string):Observable<Weatherdata[]>{
   .catch(this.errorHandler);
 }
 
-addWeatherdata (weather: Weatherdata): Observable<Weatherdata> {
-  return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options) 
-  .map(response=>response.json())
+ //////// Save methods //////////
+
+  /** POST: add a new hero to the server */
+ 
+
+addWeather (weather: Weatherdata): Observable<Weatherdata> {
+  return this.http.post<Weatherdata>(this.baseUrl+'/saveWeatherdata/'+weather.name,this.options) 
+  .pipe()
+  .map(response=>response)
   .catch(this.errorHandler);
  
 }
+
 updateWeatherdata(name:string, weather:Weatherdata, id:number):Observable<Weatherdata[]>{
   return this._http.put(this.baseUrl+'/updateWeather/'+name+'/'+id, JSON.stringify(weather),this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
+}
+
+  /** PUT: update the hero on the server */
+  updateWeather(weather: Weatherdata): Observable<any> {
+    return this.http.put(this.baseUrl, weather, this.httpOptions)
+    .pipe(
+     // tap(_ => this.log(`updated hero id=${hero.id}`)),
+     // catchError(this.handleError<any>('updateHero'))
+    )
+    .map(response=>response)
+    .catch(this.errorHandler);
+  }
+
+private handleError<T> (operation = 'operation', result?: T) {
+  return (error: any): Observable<T> => {
+
+    // TODO: send the error to remote logging infrastructure
+    console.error(error); // log to console instead
+
+    // TODO: better job of transforming error for user consumption
+   // this.log(`${operation} failed: ${error.message}`);
+
+    // Let the app keep running by returning an empty result.
+    return of(result as T);
+  };
 }
 
 errorHandler(error:Response){

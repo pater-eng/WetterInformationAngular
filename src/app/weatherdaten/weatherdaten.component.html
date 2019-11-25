@@ -1,8 +1,7 @@
-
-
+<h2>My Weather</h2>
 
 <div>
-  <label>Weather name:
+  <label>Weather City name:
     <input #weatherName />
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
@@ -11,15 +10,34 @@
   </button>
 </div>
 
+<ul class="Weather">
+  <li *ngFor="let w of Weather?.docs">
+    <a routerLink="/detail/{{w.name}}">
+      <span class="badge">{{w.name}}</span> {{w.id}}
+    </a>
+    </li>
+</ul>
+
+
+<!--div>
+  <label>Weather name:
+    <input #weatherName />
+  </label-->
+  <!-- (click) passes input value to add() and then clears the input -->
+  <!--button (click)="add(weatherName.value); weatherName.value=''">
+    add
+  </button>
+</div>
+
 <ul class="weathers">
   <li *ngFor="let w of Weather">
     <a routerLink="/detail/{{w.name}}">
       <span class="badge">{{w.name}}</span> {{hero.id}}
-    </a>
+    </a-->
     <!--button class="delete" title="delete hero"
       (click)="delete(hero)">x</button-->
-  </li>
-</ul>
+  <!--/li>
+</ul-->
 
 
 <!--div class="container">

@@ -13,17 +13,34 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./weatherdaten.component.css']
 })
 export class WeatherdatenComponent implements OnInit {
-  weather = new Weatherdata();
- // heroes: Hero[];
-  name:string;
-  aString="Jude";
- 
-  inputField : FormControl = new FormControl;
+  weather :  Weatherdata[];
+   
+  //inputField : FormControl = new FormControl;
 
      
-  constructor(private _weatherService: WeatherServiceService, private router: Router, private activedRoute: ActivatedRoute) {
+  constructor(private _weatherService: WeatherServiceService, 
+    private router: Router, private activedRoute: ActivatedRoute) {
   }
-  
+
+  ngOnInit() {
+    this.getWeather();
+  }
+
+  getWeather(): void {
+    this._weatherService.getWeather()
+    .subscribe(weather => this.weather = weather);
+  }
+// this._weatherService.addWeather({ name } as Weatherdata)
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this._weatherService.addWeather({ name } as Weatherdata)
+      .subscribe(weather => {
+        this.weather.push(weather);
+      });
+  }
+
+ /* 
   ngOnInit() {
       //this.getCity();
       this.getAllWeather();
@@ -33,7 +50,7 @@ export class WeatherdatenComponent implements OnInit {
     add(name: string): void {
       name = name.trim();
       if (!name) { return; }
-      this._weatherService.addWeatherdata({ name } as Weatherdata)
+      this._weatherService.addWeather({ name } as Weatherdata)
         .subscribe(data => {
           this.weather = data;
         });
@@ -88,6 +105,6 @@ export class WeatherdatenComponent implements OnInit {
      },(error)=>{
        console.log(error);
      })
-  }
+  } */
 
 }

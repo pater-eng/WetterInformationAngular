@@ -3,25 +3,24 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { WeatherdatenComponent } from './weatherdaten/weatherdaten.component';
-import { WeatherCityInformationComponent } from './weather-city-information/weather-city-information.component';
 import { WeatherFavoritenInformationComponent } from './weather-favoriten-information/weather-favoriten-information.component';
 import {WeatherServiceService} from './Services/weather-service.service';
 import { FilterPipe } from './filter.pipe';
 import { SearchWeatherdataComponent } from './search-weatherdata/search-weatherdata.component';
 import {WeatherdetailComponent} from './weatherdetail/weatherdetail.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const appRoutes:Routes = [
-  {path:'searchweathercity',component:WeatherdatenComponent},
   //{path:'weatherFavoriten',component:WeatherFavoritenInformationComponent},
-//  {path:'weathercityInfo/:name', component:WeatherCityInformationComponent},
+ 
+  {path: 'dashboard',component:DashboardComponent},
+  {path:'addweathercity',component:WeatherdatenComponent},
   {path: 'detail/:name', component: WeatherdetailComponent },
-  {path: '',
-    redirectTo:'/searchweathercity',
-    pathMatch:'full'}
+  {path: '', redirectTo:'/dashboard', pathMatch:'full'}
   
 ];
 
@@ -29,11 +28,11 @@ const appRoutes:Routes = [
   declarations: [
     AppComponent,
     WeatherdatenComponent,
-    WeatherCityInformationComponent,
     WeatherFavoritenInformationComponent,
     FilterPipe,
     SearchWeatherdataComponent,
-    WeatherdetailComponent
+    WeatherdetailComponent,
+    DashboardComponent
      
     
   ],
@@ -42,6 +41,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [WeatherServiceService],
