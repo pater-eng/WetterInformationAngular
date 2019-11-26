@@ -12,6 +12,7 @@ import {WeatherServiceService} from '../Services/weather-service.service';
 export class WeatherdetailComponent implements OnInit {
 
   @Input() weather: Weatherdata;
+ // @Input() daten: Weatherdata[];
   @Input() id:number;
   @Input() name:string;
   
@@ -37,10 +38,8 @@ export class WeatherdetailComponent implements OnInit {
   }
 
  save(): void {
-  const name = this.route.snapshot.paramMap.get('name');
-  const id = +this.route.snapshot.paramMap.get('id');
-    this.weatherService.updateWeatherdata(name,this.weather, id)
+    //this.weatherService.saveWeather(this.weather)
+    this.weatherService.updateWeather(this.weather)
       .subscribe(() => this.goBack());
   }
-
 }

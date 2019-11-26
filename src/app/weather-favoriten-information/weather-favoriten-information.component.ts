@@ -18,10 +18,10 @@ export class WeatherFavoritenInformationComponent implements OnInit {
   }
 
   getAllWeather(){
-    this._weatherService.getAllWeather()
+    this._weatherService.getWeather()
     .subscribe((weather)=>{
        console.log(weather);
-       this.weather=weather;// Diese Weatherdata sind gleich Weatherdata vom Backend
+      // this.weather=weather;// Diese Weatherdata sind gleich Weatherdata vom Backend
      },(error)=>{
        console.log(error);
      })

@@ -1,18 +1,11 @@
-<div id="search-component">
-    <h4><label for="search-box">Weather Search</label></h4>
-  
-    <input #searchBox id="search-box" (input)="search(searchBox.value)"
-      placeholder="name city" required/>
-    <button (click)="getCity(searchBox.value); searchBox.value=''"> search
-    </button>
+<div class="container">
+    <div class="panel panel-primary">
+        <div id="search-component">
+          <h3><label for="search-box">Weather Search</label></h3>
 
-
- 
-    <!--ul class="search-result">
-      <li *ngFor="let weather of weather?.docs | async" >
-        <a routerLink="/detail/{{weather.name}}">
-          {{weather.name}}
-        </a>
-      </li>
-    </ul-->
-  </div>
+          <input #searchBox id="search-box" (input)="search(searchBox.value)" placeholder="name city" required />
+          <button (click)="getCity(searchBox.value); searchBox.value=''"> search
+          </button>
+        </div>
+    </div>
+</div>
