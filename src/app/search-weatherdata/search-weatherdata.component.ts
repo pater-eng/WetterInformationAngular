@@ -16,7 +16,8 @@ export class SearchWeatherdataComponent implements OnInit {
   @Input() weather: Weatherdata;
   private searchTerms = new Subject<string>();
 
-  constructor(private weatherService: WeatherServiceService, private router: Router, private activedRoute: ActivatedRoute) { }
+  constructor(private weatherService: WeatherServiceService, 
+    private router: Router, private activedRoute: ActivatedRoute) { }
 
   // Push a search term into the observable stream.
   search(name: string): void {

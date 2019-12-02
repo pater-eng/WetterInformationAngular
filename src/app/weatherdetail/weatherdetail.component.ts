@@ -1,5 +1,5 @@
 import { Component, OnInit , Input} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Route, Router, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { Weatherdata } from 'app/Weather';
 import {WeatherServiceService} from '../Services/weather-service.service';
@@ -12,15 +12,18 @@ import {WeatherServiceService} from '../Services/weather-service.service';
 export class WeatherdetailComponent implements OnInit {
 
   @Input() weather: Weatherdata;
- // @Input() daten: Weatherdata[];
   @Input() id:number;
   @Input() name:string;
+  @Input() isFavorite:boolean;
+// isFavorite:boolean =true;
   
 
   constructor(
     private route: ActivatedRoute,
     private weatherService: WeatherServiceService,
-    private location: Location
+    private location: Location,
+    private router: Router,
+     private activedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -38,8 +41,16 @@ export class WeatherdetailComponent implements OnInit {
   }
 
  save(): void {
-    //this.weatherService.saveWeather(this.weather)
+   // this.weatherService.saveWeather(this.weather)
+    
     this.weatherService.updateWeather(this.weather)
       .subscribe(() => this.goBack());
   }
+
+  addFavorite(): void{
+      this.isFavorite ? 'true' : 'false';
+      this.router.navigate(['/addweathercity/']);
+         
+   }
+  
 }

@@ -1,133 +1,146 @@
 <div class="container">
     <div class="panel panel-primary">
-<div *ngIf="weather">
-  <h2>{{weather.name | uppercase}} Details</h2>
+      <div *ngIf="weather">
+        <h2>{{weather.name | uppercase}} Details</h2>
 
-    <div>
-      <label>name:
-      <input [(ngModel)]="weather.name" placeholder="name city"/>
-    </label>
-  </div>
-  <div>
-    <label>id:
-      <input [(ngModel)]="weather.id" placeholder="id city"/>
-    </label>
-  </div>
-  <div>
-    <label>pressure:
-      <input [(ngModel)]="weather.pressure" placeholder="pressure city"/>
-    </label>
-  </div>
-  
-  <div>
-    <label>speed:
-      <input [(ngModel)]="weather.speed" placeholder="speed city"/>
-    </label>
-  </div>
-  <div>
-    <label>sunrise:
-      <input [(ngModel)]="weather.sunrise" placeholder="sunrise city"/>
-    </label>
-  </div>
-  <div>
-    <label>sunset:
-      <input [(ngModel)]="weather.sunset" placeholder="sunset city"/>
-    </label>
-  </div>
-  <div>
-    <label>temp_max:
-      <input [(ngModel)]="weather.temp_max" placeholder="temp_max city"/>
-    </label>
-  </div>
-  <div>
-    <label>temp_min:
-      <input [(ngModel)]="weather.temp_min" placeholder="temp_min city"/>
-    </label>
-  </div>
-  <div>
-      <label>temperature:
-        <input [(ngModel)]="weather.temperature" placeholder="temperature city"/>
-      </label>
-    </div>
-  <div>
-    <label>timezone:
-      <input [(ngModel)]="weather.timezone" placeholder="timezone city"/>
-    </label>
-  </div>
-  <div>
-    <label>base:
-      <input [(ngModel)]="weather.base" placeholder="base city"/>
-    </label>
-  </div>
-  <div>
-    <label>cod:
-      <input [(ngModel)]="weather.cod" placeholder="cod city"/>
-      </label>
-    </div>
-    <div>
-      <label>countryCode:
-        <input [(ngModel)]="weather.countryCode" placeholder="countryCode city"/>
-      </label>
-    </div>
-  <div>
-    <label>deg:
-        <input [(ngModel)]="weather.deg" placeholder="deg city"/>
-      </label>
-    </div>
-    <div>
-      <label>description:
-        <input [(ngModel)]="weather.description" placeholder="description city"/>
-      </label>
-    </div>
-    <div>
-      <label>humidity:
-        <input [(ngModel)]="weather.humidity" placeholder="humidity city"/>
-      </label>
-    </div>
-    <div>
-      <label>icon:
-        <input [(ngModel)]="weather.icon" placeholder="icon city"/>
-      </label>
-    </div>
-    <div>
-      <label>lat:
-        <input [(ngModel)]="weather.lat" placeholder="lon city"/>
-      </label>
-    </div>
-  <div>
-    <label>lon:
-      <input [(ngModel)]="weather.lon" placeholder="lon city"/>
-    </label>
-  </div>
-  <div>
-    <label>main:
-      <input [(ngModel)]="weather.main" placeholder="main city"/>
-      </label>
-    </div>
-    <div>
-      <label>dt:
-        <input [(ngModel)]="weather.dt" placeholder="dt city"/>
-      </label>
-    </div>
-  <div>
-    <label>humidity:
-      <input [(ngModel)]="weather.humidity" placeholder="humidity city"/>
-    </label>
-  </div>
-  <div>
-    <label>visibility:
-        <input [(ngModel)]="weather.visibility" placeholder="visibility city"/>
-      </label>
-    </div>
-    <div>
-      <label>weatherId:
-        <input [(ngModel)]="weather.weatherId" placeholder="weatherId city"/>
-      </label>
-    </div>
+          <div>
+            <label>name:
+            <input [(ngModel)]="weather.name" placeholder="name city"/>
+          </label>
+        </div>
+        <div>
+          <label>id:
+            <input [(ngModel)]="weather.id" placeholder="id city"/>
+          </label>
+        </div>
+        <div>
+          <label>pressure:
+            <input [(ngModel)]="weather.pressure" placeholder="pressure city"/>
+          </label>
+        </div>
+        
+        <div>
+          <label>speed:
+            <input [(ngModel)]="weather.speed" placeholder="speed city"/>
+          </label>
+        </div>
+        <div>
+          <label>sunrise:
+            <input [(ngModel)]="weather.sunrise" placeholder="sunrise city"/>
+          </label>
+        </div>
+        <div>
+          <label>sunset:
+            <input [(ngModel)]="weather.sunset" placeholder="sunset city"/>
+          </label>
+        </div>
+        <div>
+          <label>temp_max:
+            <input [(ngModel)]="weather.temp_max" placeholder="temp_max city"/>
+          </label>
+        </div>
+        <div>
+          <label>temp_min:
+            <input [(ngModel)]="weather.temp_min" placeholder="temp_min city"/>
+          </label>
+        </div>
+        <div>
+            <label>temperature:
+              <input [(ngModel)]="weather.temperature" placeholder="temperature city"/>
+            </label>
+          </div>
+        <div>
+          <label>timezone:
+            <input [(ngModel)]="weather.timezone" placeholder="timezone city"/>
+          </label>
+        </div>
+        <div>
+          <label>base:
+            <input [(ngModel)]="weather.base" placeholder="base city"/>
+          </label>
+        </div>
+        <div>
+          <label>cod:
+            <input [(ngModel)]="weather.cod" placeholder="cod city"/>
+            </label>
+          </div>
+          <div>
+            <label>countryCode:
+              <input [(ngModel)]="weather.countryCode" placeholder="countryCode city"/>
+            </label>
+          </div>
+        <div>
+          <label>deg:
+              <input [(ngModel)]="weather.deg" placeholder="deg city"/>
+            </label>
+          </div>
+          <div>
+            <label>description:
+              <input [(ngModel)]="weather.description" placeholder="description city"/>
+            </label>
+          </div>
+          <div>
+            <label>humidity:
+              <input [(ngModel)]="weather.humidity" placeholder="humidity city"/>
+            </label>
+          </div>
+          <div>
+            <label>icon:
+              <input [(ngModel)]="weather.icon" placeholder="icon city"/>
+            </label>
+          </div>
+          <div>
+            <label>lat:
+              <input [(ngModel)]="weather.lat" placeholder="lon city"/>
+            </label>
+          </div>
+        <div>
+          <label>lon:
+            <input [(ngModel)]="weather.lon" placeholder="lon city"/>
+          </label>
+        </div>
+        <div>
+          <label>main:
+            <input [(ngModel)]="weather.main" placeholder="main city"/>
+            </label>
+          </div>
+          <div>
+            <label>dt:
+              <input [(ngModel)]="weather.dt" placeholder="dt city"/>
+            </label>
+          </div>
+        <div>
+          <label>humidity:
+            <input [(ngModel)]="weather.humidity" placeholder="humidity city"/>
+          </label>
+        </div>
+        <div>
+          <label>visibility:
+              <input [(ngModel)]="weather.visibility" placeholder="visibility city"/>
+            </label>
+          </div>
+          <div>
+            <label>weatherId:
+              <input #weatherId [(ngModel)]="weather.weatherId" placeholder="weatherId city"/>
+            </label>
+          </div>
+          <!--div>
+              <label> Check Favorite 
+                <input type="checkbox" name="isFavorite" [(ngModel)]="weather.isFavorite"/>
+              </label>
+          </div-->
 
-    <button (click)="goBack()">go back</button>
-    <button (click)="save()">save</button>
-  </div>
+          <button (click)="goBack()">go back</button>
+          <button (click)="save()" [(ngModel)]="weather.isFavorite">save</button>
+          <!-- (click) passes input value to add() and then clears the input 
+          -->
+          <div>
+              <span *ngIf="isFavorite"></span> <!--[style.fontWeight]="isFavorite ? 'true' : 'false'"-->
+              <button (click)="addFavorite()">
+                add Favorite
+              </button>
+          </div>
+        </div>
   </div>
 </div>
   

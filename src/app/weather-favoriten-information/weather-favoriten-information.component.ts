@@ -10,29 +10,20 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./weather-favoriten-information.component.css']
 })
 export class WeatherFavoritenInformationComponent implements OnInit {
-  weather = new Weatherdata();
+  weatherFavorite :  Weatherdata[];
   constructor(private _weatherService: WeatherServiceService, private router: Router) { }
 
   ngOnInit() {
-   this.getAllWeather()
+  
   }
 
-  getAllWeather(){
-    this._weatherService.getWeather()
-    .subscribe((weather)=>{
-       console.log(weather);
-      // this.weather=weather;// Diese Weatherdata sind gleich Weatherdata vom Backend
-     },(error)=>{
-       console.log(error);
-     })
-  }
-
-
-
-
-
-  onNavigate(){
-    this.router.navigate(['/searchweathercity']);
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this._weatherService.addWeather({ name } as Weatherdata)
+      .subscribe(weather => {
+        this.weatherFavorite.push(weather);
+      });
   }
 
 }

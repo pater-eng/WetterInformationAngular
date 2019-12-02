@@ -32,16 +32,13 @@ httpOptions = {
   constructor(private _http:Http,  private http: HttpClient) { }
   
 
- /** GET heroes from the server */
+ /** GET weather from the server */
  getWeather (): Observable<Weatherdata[]> {
   return this.http.get<Weatherdata[]>(this.baseUrl+'/allWeather')
-  .pipe(
-    //tap(_ => this.log('fetched heroes')),
-    // catchError(this.handleError<Weatherdata[]>('getHeroes', []))
-    ).catch(this.errorHandler);
+  .pipe().catch(this.errorHandler);
   }
 
-  /** GET hero by id. Will 404 if id not found */
+  /** GET weather by id. Will 404 if id not found */
     
     getCity(name: string): Observable<Weatherdata> {
      const url = `${this.baseUrl}/${this.getUrl}/${name}`;
@@ -52,7 +49,7 @@ httpOptions = {
     }
 
 
-     /* GET heroes whose name contains search term */
+     /* GET weather whose name contains search term */
  searchWeatherdata(name: string): Observable<Weatherdata[]> {
   if (!name.trim()) {
     // if not search term, return empty hero array.
@@ -74,6 +71,14 @@ getWeatherCityAndId(name:string,id:number): Observable<Weatherdata[]>{
 }
 
 
+
+saveWeatherdata(name:string):Observable<Weatherdata[]>{
+  return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options)
+  .map(response=>response.json())
+  .catch(this.errorHandler);
+}
+
+// hier
 saveWeather(weather:Weatherdata): Observable<Weatherdata>{
   return this.http.post<Weatherdata>(this.baseUrl+'/saveWeatherdata', weather ,this.httpOptions)
   .pipe()
@@ -81,9 +86,9 @@ saveWeather(weather:Weatherdata): Observable<Weatherdata>{
   .catch(this.errorHandler);
 }
 
-  /** PUT: update the hero on the server */
+  /** PUT: update the weather on the server */
   updateWeather(weather:Weatherdata): Observable<Weatherdata> {
-    return this.http.put<Weatherdata>(this.baseUrl +'/updateWeather', weather, this.httpOptions)
+    return this.http.put<Weatherdata>(this.baseUrl +'/updateWeather', weather,  this.httpOptions)
     .pipe()
     .map(response=>response)
     .catch(this.errorHandler);
@@ -95,9 +100,12 @@ updateWeatherdata(name:string, weather:Weatherdata, id:number):Observable<Weathe
   .catch(this.errorHandler);
 }
 
-//////// Save methods //////////
 
-  /** POST: add a new hero to the server */
+
+
+ //////// Save methods //////////
+
+  /** POST: add a new weather to the server */
  
 
 addWeather (weather: Weatherdata): Observable<Weatherdata> {
@@ -108,19 +116,18 @@ addWeather (weather: Weatherdata): Observable<Weatherdata> {
  
 }
 
-private handleError<T> (operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
+ /** DELETE: delete the weather from the server */
+ deleteWeather (weather: Weatherdata | number): Observable<Weatherdata> {
+   let confirm =window.confirm('Bist du sicher, dass du löschen möchtest?');
+   if(confirm==true){
 
-    // TODO: send the error to remote logging infrastructure
-    console.error(error); // log to console instead
-
-    // TODO: better job of transforming error for user consumption
-   // this.log(`${operation} failed: ${error.message}`);
-
-    // Let the app keep running by returning an empty result.
-    return of(result as T);
-  };
-}
+     const id = typeof weather === 'number' ? weather : weather.id;
+     const url = `${this.baseUrl}+/'deleteWeather'/+${id}`;
+     
+     return this.http.delete<Weatherdata>(url, this.httpOptions)
+     .pipe();
+    }
+ }
 
 errorHandler(error:Response){
   return Observable.throw(error||'SERVER ERROR');

@@ -23,5 +23,6 @@ export class Weatherdata {
    temp_max:number;
    speed:number;
 	 deg:number;
+	 isFavorite:boolean;
 
 }
