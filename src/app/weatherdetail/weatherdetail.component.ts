@@ -14,8 +14,7 @@ export class WeatherdetailComponent implements OnInit {
   @Input() weather: Weatherdata;
   @Input() id:number;
   @Input() name:string;
-  @Input() isFavorite:boolean;
-// isFavorite:boolean =true;
+  @Input() favorite:boolean;
   
 
   constructor(
@@ -28,6 +27,7 @@ export class WeatherdetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWeatherCity();
+
   }
 
   getWeatherCity(): void {
@@ -36,21 +36,39 @@ export class WeatherdetailComponent implements OnInit {
       .subscribe(weather => this.weather = weather);
   }
 
+  public onFavoriteChanged(value:boolean){
+    this.favorite = value;
+    this.weather.favorite = value;
+}
+
   goBack(): void {
     this.location.back();
   }
 
  save(): void {
    // this.weatherService.saveWeather(this.weather)
-    
-    this.weatherService.updateWeather(this.weather)
+     this.weatherService.updateWeather(this.weather)
       .subscribe(() => this.goBack());
   }
 
   addFavorite(): void{
-      this.isFavorite ? 'true' : 'false';
-      this.router.navigate(['/addweathercity/']);
+     this.weatherService.updateWeather(this.weather)
+      .subscribe(weather => {
+      this.weather = weather;
+        this.router.navigate(['/addweathercity/']);
+       
+      });
+      
          
    }
+
+   add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.weatherService.addWeather({ name } as Weatherdata)
+      .subscribe(weather => {
+        //this.weather.push(weather);
+      });
+  }
   
 }

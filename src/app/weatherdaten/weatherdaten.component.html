@@ -1,13 +1,13 @@
 <div class="container">
 <div class="panel panel-primary">
   <ul class="weather">
-    <li *ngFor="let w of weather$">
+    <li *ngFor="let w of weather">
       <a routerLink="/detail/{{w.name}}">
         <span class="badge">{{w.name}}</span> {{w.id}}
       </a>
     </li>
   </ul>
-  <button (click)="saveListFavorite()">save Favorite</button>
+  <!--button (click)="saveListFavorite()">save Favorite</button-->
 </div>
 </div>
 

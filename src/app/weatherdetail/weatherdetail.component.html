@@ -124,18 +124,19 @@
               <input #weatherId [(ngModel)]="weather.weatherId" placeholder="weatherId city"/>
             </label>
           </div>
-          <!--div>
-              <label> Check Favorite 
-                <input type="checkbox" name="isFavorite" [(ngModel)]="weather.isFavorite"/>
-              </label>
-          </div-->
+          <div>
+            <label> Check Favorite: 
+              <input #favorite id="favoriteCheckbox" type="checkbox"  [checked] ="weather.favorite" 
+                (change)="onFavoriteChanged(favorite.checked)" required/>
+            </label>
+          </div>
+        
 
           <button (click)="goBack()">go back</button>
-          <button (click)="save()" [(ngModel)]="weather.isFavorite">save</button>
+          <button (click)="save()" [(ngModel)]="weather.favorite">save</button>
           <!-- (click) passes input value to add() and then clears the input 
           -->
           <div>
-              <span *ngIf="isFavorite"></span> <!--[style.fontWeight]="isFavorite ? 'true' : 'false'"-->
               <button (click)="addFavorite()">
                 add Favorite
               </button>
