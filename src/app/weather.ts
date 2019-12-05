@@ -12,7 +12,6 @@ export class Weatherdata {
 	 countryCode:number;
 	 sunrise:number;
 	 sunset:number;
-	 weatherId:number;
 	 icon:string;
 	 main:string;
 	 description:string;
@@ -22,7 +21,7 @@ export class Weatherdata {
    temp_min:number;
    temp_max:number;
    speed:number;
-	 deg:number;
+	deg:number;
 	 favorite:boolean;
 
 }

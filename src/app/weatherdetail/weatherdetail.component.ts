@@ -45,12 +45,7 @@ export class WeatherdetailComponent implements OnInit {
     this.location.back();
   }
 
- save(): void {
-   // this.weatherService.saveWeather(this.weather)
-     this.weatherService.updateWeather(this.weather)
-      .subscribe(() => this.goBack());
-  }
-
+ 
   addFavorite(): void{
      this.weatherService.updateWeather(this.weather)
       .subscribe(weather => {
@@ -62,13 +57,6 @@ export class WeatherdetailComponent implements OnInit {
          
    }
 
-   add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.weatherService.addWeather({ name } as Weatherdata)
-      .subscribe(weather => {
-        //this.weather.push(weather);
-      });
-  }
+  
   
 }

@@ -42,4 +42,9 @@ export class WeatherdatenComponent implements OnInit {
     this._weatherService.updateWeather(this.weather$)
       .subscribe();
   }
+
+  delete(weather: Weatherdata): void {
+    this.weather = this.weather.filter(h => h !== weather);
+    this._weatherService.deleteWeather(weather).subscribe();
+  }
 }

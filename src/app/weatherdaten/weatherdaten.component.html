@@ -5,9 +5,10 @@
       <a routerLink="/detail/{{w.name}}">
         <span class="badge">{{w.name}}</span> {{w.id}}
       </a>
+      <button class="delete" title="delete weather"
+          (click)="delete(w)">delete</button>
     </li>
   </ul>
-  <!--button (click)="saveListFavorite()">save Favorite</button-->
 </div>
 </div>
 

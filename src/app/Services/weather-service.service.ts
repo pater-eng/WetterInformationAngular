@@ -45,7 +45,7 @@ httpOptions = {
      return this.http.get<Weatherdata>(url,this.httpOptions)
      .pipe() 
      .map(response=>response)
-     .catch(this.errorHandler);;
+     .catch(this.errorHandler);
     }
 
 
@@ -78,14 +78,6 @@ saveWeatherdata(name:string):Observable<Weatherdata[]>{
   .catch(this.errorHandler);
 }
 
-// hier
-saveWeather(weather:Weatherdata): Observable<Weatherdata>{
-  return this.http.post<Weatherdata>(this.baseUrl+'/saveWeatherdata', weather ,this.httpOptions)
-  .pipe()
-  .map(response=>response)
-  .catch(this.errorHandler);
-}
-
   /** PUT: update the weather on the server */
   updateWeather(weather:Weatherdata): Observable<Weatherdata> {
     return this.http.put<Weatherdata>(this.baseUrl +'/updateWeather', weather,  this.httpOptions)
@@ -93,14 +85,6 @@ saveWeather(weather:Weatherdata): Observable<Weatherdata>{
     .map(response=>response)
     .catch(this.errorHandler);
   }
-
-updateWeatherdata(name:string, weather:Weatherdata, id:number):Observable<Weatherdata[]>{
-  return this._http.put(this.baseUrl+'/updateWeather/'+name+'/'+id, JSON.stringify(weather),this.options)
-  .map(response=>response.json())
-  .catch(this.errorHandler);
-}
-
-
 
 
  //////// Save methods //////////
@@ -122,7 +106,8 @@ addWeather (weather: Weatherdata): Observable<Weatherdata> {
    if(confirm==true){
 
      const id = typeof weather === 'number' ? weather : weather.id;
-     const url = `${this.baseUrl}+/'deleteWeather'/+${id}`;
+     //const name = typeof weather === 'string' ? weather : weather.name;
+     const url = `${this.baseUrl}/deleteWeather/${id}`;
      
      return this.http.delete<Weatherdata>(url, this.httpOptions)
      .pipe();
