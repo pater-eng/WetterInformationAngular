@@ -74,10 +74,31 @@
   
   button.delete {
     position: relative;
-    left: 194px;
+    left: 235px;
     top: -32px;
-    background-color: gray !important;
+    background-color: red !important;
     color: white;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+   
+  
+  }
+
+  button.save {
+    position: relative;
+    left: 235px;
+    top: -32px;
+    background-color: green !important;
+    color: white;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+    
   }
   
   

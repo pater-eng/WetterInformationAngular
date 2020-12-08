@@ -1,0 +1,10 @@
+
+
+  <div style="display: inline-block;">
+    <input type="text"  #searchBox id="search-box" (input)="search(searchBox.value)" 
+    placeholder="please give city's name" size="100"/>
+  </div>
+  <div>
+    <button (click)="getCity(searchBox.value); searchBox.value=''"> search</button>
+  </div>
+    

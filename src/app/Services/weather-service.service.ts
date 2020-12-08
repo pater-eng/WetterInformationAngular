@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpResponse } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -28,28 +28,29 @@ weather: Weatherdata;
 httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
+  //Seite angular 4 wird HttpClientModule verwenden
   constructor(private _http:Http,  private http: HttpClient) { }
   
-
- /** GET weather from the server */
- getWeather (): Observable<Weatherdata[]> {
-  return this.http.get<Weatherdata[]>(this.baseUrl+'/allWeather')
-  .pipe().catch(this.errorHandler);
-  }
-
-  /** GET weather by id. Will 404 if id not found */
     
     getCity(name: string): Observable<Weatherdata> {
+      
      const url = `${this.baseUrl}/${this.getUrl}/${name}`;
      return this.http.get<Weatherdata>(url,this.httpOptions)
      .pipe() 
      .map(response=>response)
-     .catch(this.errorHandler);
+     .catch((reponse: HttpResponse<Weatherdata>)=>{
+       return Observable.throw(reponse);
+     });
     }
 
+   getAllListWeather(page:number){
+    return this.http.get<Weatherdata[]>(this.baseUrl+'/listAllWeather?page='+page,this.httpOptions)
+    .pipe()
+    .map(response=>response)
+    .catch(this.errorHandler);
+   }
 
-     /* GET weather whose name contains search term */
+  /* GET weather whose name contains search term */
  searchWeatherdata(name: string): Observable<Weatherdata[]> {
   if (!name.trim()) {
     // if not search term, return empty hero array.
@@ -62,8 +63,6 @@ httpOptions = {
 }
 
 
-
-
 getWeatherCityAndId(name:string,id:number): Observable<Weatherdata[]>{
   return this._http.get(this.baseUrl+'/weathercity/'+name+'/'+id,this.options)
   .map(response=>response.json())
@@ -71,13 +70,25 @@ getWeatherCityAndId(name:string,id:number): Observable<Weatherdata[]>{
 }
 
 
-
-saveWeatherdata(name:string):Observable<Weatherdata[]>{
-  return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options)
+getWeatherCity(name:string): Observable<Weatherdata[]>{
+  return this._http.get(this.baseUrl+'/weathercity/'+name,this.options)
   .map(response=>response.json())
   .catch(this.errorHandler);
 }
 
+
+saveWeatherdata(name:string):Observable<Weatherdata[]>{
+  return this._http.post(this.baseUrl+'/saveWeatherdata/'+name,this.options)
+  .pipe()
+  .map(response=>response.json())
+  .catch(this.errorHandler);
+}
+
+saveListWeatherdata(weather:Weatherdata): Observable<Weatherdata>{
+  return this._http.post(this.baseUrl+'/saveWeatherdata/', weather,this.options)
+  .map(response=>response.json())
+  .catch(this.errorHandler);
+}
   /** PUT: update the weather on the server */
   updateWeather(weather:Weatherdata): Observable<Weatherdata> {
     return this.http.put<Weatherdata>(this.baseUrl +'/updateWeather', weather,  this.httpOptions)
@@ -101,17 +112,19 @@ addWeather (weather: Weatherdata): Observable<Weatherdata> {
 }
 
  /** DELETE: delete the weather from the server */
- deleteWeather (weather: Weatherdata | number): Observable<Weatherdata> {
+ deleteWeather (weather: Weatherdata | any): Observable<Weatherdata> {
    let confirm =window.confirm('Bist du sicher, dass du löschen möchtest?');
    if(confirm==true){
 
      const id = typeof weather === 'number' ? weather : weather.id;
      //const name = typeof weather === 'string' ? weather : weather.name;
      const url = `${this.baseUrl}/deleteWeather/${id}`;
-     
+     fetch(url)
      return this.http.delete<Weatherdata>(url, this.httpOptions)
      .pipe();
-    }
+    } 
+       return null;
+    
  }
 
 errorHandler(error:Response){

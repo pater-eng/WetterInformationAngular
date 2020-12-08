@@ -42,8 +42,10 @@ export class WeatherdetailComponent implements OnInit {
 }
 
   goBack(): void {
-    this.location.back();
+    //this.location.back(); // zurück auf directe Seite
+    this.router.navigate(['/dashboard']); // zurück auf Start-Seite 
   }
+  
 
  
   addFavorite(): void{

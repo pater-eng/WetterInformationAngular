@@ -11,16 +11,21 @@ import { Route, Router, ActivatedRoute, Params } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   weather: Weatherdata[] = [];
+  private currentPage:number=0;
 
   constructor(private weatherService: WeatherServiceService, private router: Router, private activedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getWeather();
+   
+    this.getAlllistWeather(this.currentPage);
   }
 
-  getWeather(): void {
-    this.weatherService.getWeather()
-      .subscribe(weather => this.weather = weather.slice(1, 3));//slice = 1-5 Städte werden angezeigt
+  getAlllistWeather(page:number): void{
+    this.weatherService.getAllListWeather(page)
+    .subscribe(weather => this.weather = weather);
   }
 
+  onNavigate(){
+    this.router.navigate(['/'])
+  }
 }

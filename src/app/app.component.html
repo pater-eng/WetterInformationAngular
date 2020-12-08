@@ -4,13 +4,11 @@
    <h1 class="container spacer">
       {{title}}
     </h1>
-    <div>
-      <nav>
-        <a routerLink="/dashboard">Dashboard</a>
-        <a routerLink="/addweathercity">Weather</a>
+      <nav style="margin:15px;">
+        <!--a [routerLink]="['/dashboard']">Dashboard</a-->
+        <a [routerLink]="['/addweathercity']">All Favorites</a>
       </nav>
-    <router-outlet></router-outlet>
-    </div>
-    </div>
+         <router-outlet></router-outlet>
+       </div>
 </div>
 

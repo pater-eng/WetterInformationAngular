@@ -6,12 +6,13 @@ import {RouterModule, Routes} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { WeatherdatenComponent } from './weatherdaten/weatherdaten.component';
-import { WeatherFavoritenInformationComponent } from './weather-favoriten-information/weather-favoriten-information.component';
 import {WeatherServiceService} from './Services/weather-service.service';
 import { FilterPipe } from './filter.pipe';
 import { SearchWeatherdataComponent } from './search-weatherdata/search-weatherdata.component';
 import {WeatherdetailComponent} from './weatherdetail/weatherdetail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeldInputComponent } from './feld-input/feld-input.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 
 const appRoutes:Routes = [
@@ -20,7 +21,7 @@ const appRoutes:Routes = [
   {path: 'dashboard',component:DashboardComponent},
   {path:'addweathercity',component:WeatherdatenComponent},
   {path: 'detail/:name', component: WeatherdetailComponent },
-  {path: '', redirectTo:'/dashboard', pathMatch:'full'}
+  {path: '', redirectTo:'/', pathMatch:'full'}
   
 ];
 
@@ -28,11 +29,12 @@ const appRoutes:Routes = [
   declarations: [
     AppComponent,
     WeatherdatenComponent,
-    WeatherFavoritenInformationComponent,
     FilterPipe,
     SearchWeatherdataComponent,
     WeatherdetailComponent,
-    DashboardComponent
+    DashboardComponent,
+    FeldInputComponent,
+    ContactsComponent
      
     
   ],

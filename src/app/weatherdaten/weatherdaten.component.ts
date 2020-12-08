@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter,Input, Output, ViewChild} from '@angular/core';
-import {WeatherServiceService} from '../Services/weather-service.service'
+import {WeatherServiceService} from '../Services/weather-service.service';
+import{PagerService} from '../Services/weather-page.service';
 import {Weatherdata} from '../weather';
 import { Route, Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, NgForm } from '@angular/forms';
@@ -12,39 +13,62 @@ import { Observable, Subject } from 'rxjs';
   templateUrl: './weatherdaten.component.html',
   styleUrls: ['./weatherdaten.component.css']
 })
+
+
 export class WeatherdatenComponent implements OnInit {
-  weather :  Weatherdata[];
-  weather$ :  Weatherdata;
-    
+  weather :  Array<Weatherdata>;
+  private currentPage:number=0;
+  private pages:Array<number>;
+  private favorite:boolean;
+
+  title = 'My Favorite Cities: ';
+
   constructor(private _weatherService: WeatherServiceService, 
     private router: Router, private activedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.getWeather();
+
+    this.getAllListWeather();
   }
 
-  getWeather(): void {
-    this._weatherService.getWeather()
-    .subscribe(weather => this.weather = weather);
-  }
+getAllListWeather(){
+  this._weatherService.getAllListWeather(this.currentPage)
+  .subscribe(data =>{
+    
+    this.weather=data['content'];
+    this.pages= new Array(data['totalPages']);
+    this.favorite = true;
+  })
+}
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this._weatherService.addWeather({ name } as Weatherdata)
-      .subscribe(weather => {
-        this.weather.push(weather);
-      });
-  }
+setPage(i, event:any){
+  event.preventDefault();
+  this.currentPage=i;
+  this.getAllListWeather();
 
-  saveListFavorite(): void {
-    this._weatherService.updateWeather(this.weather$)
-      .subscribe();
+}
+
+saveListFavorite(weather: Weatherdata): void {
+  
+    this._weatherService.saveListWeatherdata(weather)
+      .subscribe(data=>{
+        let confirm = window.confirm('schon gespeichert !!!');
+       }
+      );
   }
 
   delete(weather: Weatherdata): void {
     this.weather = this.weather.filter(h => h !== weather);
-    this._weatherService.deleteWeather(weather).subscribe();
+    this._weatherService.deleteWeather(weather)
+      .subscribe(weather => {
+        weather = null;
+               
+        });
+    
+  }
+
+  backToStartSide(){
+    this.router.navigate(['/dashboard']);
   }
 }

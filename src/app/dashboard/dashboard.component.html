@@ -1,11 +1,6 @@
-<!--h3>Lists Weather from City</h3>
-<div class="grid grid-pad">
-  <a *ngFor="let w of weather" class="col-1-4"
-      routerLink="/detail/{{w.name}}">
-    <div class="module weather">
-      <h4>{{w.name}}</h4>
-    </div>
-  </a>
+<div class="container">
+  <div class="panel panel-primary">
+    <!--button (click)="onNavigate()">Dashboard la route</button-->
+      <app-search-weatherdata></app-search-weatherdata>
+  </div>
 </div>
-<br/-->
-<app-search-weatherdata></app-search-weatherdata>

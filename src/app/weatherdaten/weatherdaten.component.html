@@ -1,17 +1,36 @@
+<h2 class="container spacer">
+  {{title}} 
+</h2>
 <div class="container">
 <div class="panel panel-primary">
-  <ul class="weather">
-    <li *ngFor="let w of weather">
-      <a routerLink="/detail/{{w.name}}">
-        <span class="badge">{{w.name}}</span> {{w.id}}
-      </a>
-      <button class="delete" title="delete weather"
-          (click)="delete(w)">delete</button>
-    </li>
-  </ul>
+  <div>
+    <ul class="weather">
+      <li *ngFor="let w of weather">
+        <a routerLink="/detail/{{w.name}}">
+          <span class="badge">{{w.name}}</span> {{w.id}}
+        </a>
+        <button class="delete" title="delete weather" (click)="delete(w)">delete</button>
+        <button  class="save" title="save weathe" (click)="saveListFavorite(w)">save</button>
+      </li>
+    </ul>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li class="nav-item" *ngFor="let p of pages; let i=index">
+          <a class="nav-link" href="" (click)="setPage(i,$event)" [ngClass]="{'active' :i==currentPage}">
+            {{i}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <br/>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <button (click)="backToStartSide()">back to start Side</button>
+      </ul>
+    </div>
+  </div>
 </div>
 </div>
-
 
 
           
